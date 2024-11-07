@@ -57,17 +57,15 @@ par.innovus.design_flow_effort: "standard"
 par.inputs.gds_merge: true
 
 # Calibre options
-vlsi.core.drc_tool: "hammer.drc.pegasus"
-vlsi.core.lvs_tool: "hammer.lvs.pegasus"
-lvs.pegasus.version: ""
-lvs.pegasus.pegasus_bin: "${cadence.cadence_home}/PEGASUS/bin/pegasus"
-#drc.calibre.calibre_drc_bin: "/share/instsww/mgc/CALIBRE/bin/calibre"
-#drc.calibre.calibredrv_bin: "/share/instsww/mgc/CALIBRE/bin/calibredrv"
-#drc.calibre.MGC_HOME: "/shared/instsww/mgc"
-#lvs.calibre.calibre_lvs_bin: "/share/instsww/mgc/CALIBRE/bin/calibre"
-#lvs.calibre.calibredrv_bin: "/share/instsww/mgc/CALIBRE/bin/calibredrv"
-#lvs.calibre.v2lvs_bin: "/share/instsww/mgc/CALIBRE/bin/v2lvs"
-#lvs.calibre.MGC_HOME: "/shared/instsww/mgc"
+vlsi.core.drc_tool: "hammer.drc.calibre"
+vlsi.core.lvs_tool: "hammer.lvs.calibre"
+drc.calibre.calibre_drc_bin: "/share/instsww/mgc/CALIBRE/bin/calibre"
+drc.calibre.calibredrv_bin: "/share/instsww/mgc/CALIBRE/bin/calibredrv"
+drc.calibre.MGC_HOME: "/shared/instsww/mgc"
+lvs.calibre.calibre_lvs_bin: "/share/instsww/mgc/CALIBRE/bin/calibre"
+lvs.calibre.calibredrv_bin: "/share/instsww/mgc/CALIBRE/bin/calibredrv"
+lvs.calibre.v2lvs_bin: "/share/instsww/mgc/CALIBRE/bin/v2lvs"
+lvs.calibre.MGC_HOME: "/shared/instsww/mgc"
 
 # VCS options
 vlsi.core.sim_tool: "hammer.sim.vcs"
@@ -79,7 +77,7 @@ power.voltus.version: "221"
 power.voltus.voltus_bin: "/share/instsww/cadence/SSV221/bin/voltus"
 
 # Generate Make include to aid in flow 
-vlsi.core.build_system: make
+vlsi.core.build_system: make 
 
 # Power Straps
 par.power_straps_mode: generate
@@ -93,12 +91,20 @@ par.generate_power_straps_options:
       - met3
       - met4
       - met5
-    blockage_spacing_met2: 4.0
-    track_width: 6
+    pin_layers:
+      - met5
+    blockage_spacing_met2: 2.0
+    blockage_spacing_met4: 2.0
+    track_width: 2
+    track_width_met2: 2
+    track_width_met3: 2
+    track_width_met4: 2
     track_width_met5: 2
-    track_spacing: 1
+    track_spacing: 5
     track_start: 10
     track_start_met5: 1
-    power_utilization: 0.2
-    power_utilization_met2: 0.05
+    power_utilization: 0.2 
+    power_utilization: 0.2 
+    power_utilization_met4: 0.4
     power_utilization_met5: 0.5
+
