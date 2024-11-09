@@ -3,16 +3,17 @@
 vlsi.core.technology: hammer.technology.sky130
 technology.sky130:
   sky130A: "/home/ff/eecs151/fa24/pdk/sky130A"  
-  sram22_sky130_macros: "/home/ff/eecs151/fa24/sky130_srams/sram22_sky130_macros"  
-  sky130_cds:    "/home/ff/eecs151/fa24/pdk/sky130_release_0.0.4"
-  sky130_scl: "/home/ff/eecs151/fa24/pdk/sky130_scl_9T_0.0.5"
-  stdcell_library: "sky130_scl"
-
+  #sram22_sky130_macros: "/home/ff/eecs151/fa24/sky130_srams/sram22_sky130_macros"  
+  #sky130_cds:    "/home/ff/eecs151/fa24/pdk/sky130_release_0.0.4"
+  sky130_cds: "/tmp/sky130_release_0.0.4"
+  #sky130_scl: "/home/ff/eecs151/fa24/pdk/sky130_scl_9T_0.0.5"
+  #stdcell_library: "sky130_scl"
+  
 # for sky130_scl
-technology.core.stackup: "sky130_scl"
-#technology.core.stackup: "sky130_fd_sc_hd"
-vlsi.technology.placement_site: "CoreSite"
-vlsi.technology.routing_layers: [2, 5]
+#technology.core.stackup: "sky130_scl"
+technology.core.stackup: "sky130_fd_sc_hd"
+#vlsi.technology.placement_site: "CoreSite"
+vlsi.technology.routing_layers: [2, 5] 
 
 vlsi.core.max_threads: 4
 
@@ -37,11 +38,14 @@ vlsi.inputs.mmmc_corners: [
   {name: "ff_n40C_1v95", type: "hold", voltage: "1.95 V", temp: "-40 C"}
 ]
 
+special_cells.cell_type: "tapcell"
+special_cells.name: "sky130_fd_sc_hd__tapvpwrvgnd_1" 
+
 # SRAM Compiler compiler options
-vlsi.core.sram_generator_tool: "hammer.technology.sky130.sram_compiler"
+#vlsi.core.sram_generator_tool: "hammer.technology.sky130.sram_compiler"
 # Specify this since we are not using macrocompiler
-vlsi.inputs.sram_parameters: "/home/ff/eecs151/fa24/hammer/hammer/technology/sky130/sram-cache.json"  
-vlsi.inputs.sram_parameters_meta: ["transclude", "json2list"]
+#vlsi.inputs.sram_parameters: "/home/ff/eecs151/fa24/hammer/hammer/technology/sky130/sram-cache.json"  
+#vlsi.inputs.sram_parameters_meta: ["transclude", "json2list"]
 
 # Tool options. Replace with your tool plugin of choice.
 # Genus options
@@ -57,15 +61,18 @@ par.innovus.design_flow_effort: "standard"
 par.inputs.gds_merge: true
 
 # Calibre options
-vlsi.core.drc_tool: "hammer.drc.calibre"
-vlsi.core.lvs_tool: "hammer.lvs.calibre"
-drc.calibre.calibre_drc_bin: "/share/instsww/mgc/CALIBRE/bin/calibre"
-drc.calibre.calibredrv_bin: "/share/instsww/mgc/CALIBRE/bin/calibredrv"
-drc.calibre.MGC_HOME: "/shared/instsww/mgc"
-lvs.calibre.calibre_lvs_bin: "/share/instsww/mgc/CALIBRE/bin/calibre"
-lvs.calibre.calibredrv_bin: "/share/instsww/mgc/CALIBRE/bin/calibredrv"
-lvs.calibre.v2lvs_bin: "/share/instsww/mgc/CALIBRE/bin/v2lvs"
-lvs.calibre.MGC_HOME: "/shared/instsww/mgc"
+vlsi.core.drc_tool: "hammer.drc.pegasus"
+vlsi.core.lvs_tool: "hammer.lvs.pegasus"
+lvs.pegasus.pegasus_bin: "${cadence.cadence_home}/PEGASUS221/bin/pegasus" 
+drc.pegasus.pegasus_bin: "${cadence.cadence_home}/PEGASUS221/bin/pegasus"
+#lvs_decks.path: "/home/ff/eecs151/fa23/pdk_final/sky130_cds/sky130_prelim_release_091123/pegasus/sky130_rev0001.lvs.pvl"
+#drc.calibre.calibre_drc_bin: "/share/instsww/mgc/CALIBRE/bin/calibre"
+#drc.calibre.calibredrv_bin: "/share/instsww/mgc/CALIBRE/bin/calibredrv"
+#drc.calibre.MGC_HOME: "/shared/instsww/mgc"
+#lvs.calibre.calibre_lvs_bin: "/share/instsww/mgc/CALIBRE/bin/calibre"
+#lvs.calibre.calibredrv_bin: "/share/instsww/mgc/CALIBRE/bin/calibredrv"
+#lvs.calibre.v2lvs_bin: "/share/instsww/mgc/CALIBRE/bin/v2lvs"
+#lvs.calibre.MGC_HOME: "/shared/instsww/mgc"
 
 # VCS options
 vlsi.core.sim_tool: "hammer.sim.vcs"
@@ -86,25 +93,23 @@ par.blockage_spacing: 2.0
 par.blockage_spacing_top_layer: met3
 par.generate_power_straps_options:
   by_tracks:
-    strap_layers:
+    strap_layers:      
       - met2
       - met3
       - met4
-      - met5
-    pin_layers:
-      - met5
-    blockage_spacing_met2: 2.0
-    blockage_spacing_met4: 2.0
-    track_width: 2
-    track_width_met2: 2
-    track_width_met3: 2
-    track_width_met4: 2
-    track_width_met5: 2
-    track_spacing: 5
+      - met5 
+    blockage_spacing_met2: 4.0
+    blockage_spacing_met4: 2.0 
+    track_width: 1
+    track_width_met1: 10
+    track_width_met5: 1
+    track_spacing: 1
     track_start: 10
     track_start_met5: 1
-    power_utilization: 0.2 
-    power_utilization: 0.2 
-    power_utilization_met4: 0.4
+    power_utilization: 0.5
+    power_utilization_met1: 0.9
+    power_utilization_met2: 0.5
+    power_utilization_met3: 0.5 
+    power_utilization_met4: 0.5
     power_utilization_met5: 0.5
 
